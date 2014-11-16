@@ -29,46 +29,32 @@ jQueryMapi
 
 ###Использование
 
-Для использования требуется добавить тегу class ```quick-tips```. При этом контент сообщения по-умолчанию будет браться из атрибута ```quick-tips```, а если атрибут отсутствует — с помощью функции .html().
+Для автоматической инициализации требуется добавить контейнеру ```id```, который будет соответствовать ```id``` в JSON-объекте и класс ```mapi```.
 
 ```html
-<!-- #1 -->
-<div class="quick-tips" quick-tips="From left border"></div>
-<!-- #2 -->
-<div class="quick-tips">From left border</div>
+<div id="map1" style="width:300px;height:200px;" class="mapi"></div> 
 ```
 
-#####Второй метод использования — это назначение своего класса и задание опций.
+Не рекомендуется инициализировать карту при загрузки страницы, если карта по-умолчанию скрыта от пользователя, например ч/з ```display:none;```. В таком случае параметры ширины и высоты не всегда и у всех провайдеров определяются верно и модуль выглядит не корректно. Есть «фиксы», которые решают проблему с каждым конкретным провайдером, но их требуется настраивать вручную.
+
+#####Второй метод инициализации ч/з функцию, с указанием ID.
 
 ```html
 <!-- HTML -->
-<div class="my-hint" quick-tips="From left border"></div>
+<div id="map1" style="width:300px;height:200px;"></div>
 ```
 
 ```js
 /* JavaScript */
-QuickTips(".my-hint", { "color" : "#FF0000", "background-color" : "#FFF" });
+mapi( "map1" );
 ```
 
-#####Опции можно так же задавать прямо в атрибутах.
-```html
-<!-- HTML -->
-<div class="quick-tips" quick-tips="From left border" quick-tips-color="#FF0000" quick-tips-background-color="#FFFFFF"></div>
+В данном методе модуль будет искать ```id``` равный ```map1``` в JSON-объекте с данными. Если ```id``` не будет найден — инициализация не произойдет.
+
+Данный метод имеет «надстройку» на jQuery, вызов можно совершить след. образом:
+
+```js
+/* JavaScript */
+var $map = $("#map1");
+$map.mapi();
 ```
-
-#####Доступные опции перечислены в объекте [QuickTips.defaultOptions](https://github.com/milaxcom/jQueryQuickTips/blob/gh-pages/jquery.quicktips.js).
-
-#####Среди опций есть калбеки
-
-- before (до отображения)
-- after (после отображения)
-- hide (после скрытия)
-
-Пример использования before приведен на [демо странице](http://milaxcom.github.io/jQueryQuickTips/demo/). В центральном сообщении отображается текущее время.
-
-#####Handler можно вызвать прямо из атрибута.
-```html
-<!-- HTML -->
-<div class="quick-tips" quick-tips="From left border" quick-tips-before="myfunction"></div>
-```
-В данном примере калбек before исполнит функцию глобальной видимости ```myfunction()```.
