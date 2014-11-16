@@ -1,5 +1,5 @@
 /*
- * jQueryMapi v1.0
+ * jQueryMapi v1.1
  *
  * Copyright 2014 Milax
  * http://www.milax.com/
@@ -40,9 +40,9 @@ var mapi 					= function ( id ) {
 mapi.ready 					= function ( name ) {
 
 	var providers 				= {
-		yandex						: (typeof ymaps.Map == "undefined") 		? false : true,
-		google 						: (typeof google.maps.Map == "undefined") 	? false : true,
-		dblgis 						: (typeof DG.map == "undefined") 			? false : true
+		yandex						: (typeof ymaps 	== "undefined") ? false : true,
+		google 						: (typeof google 	== "undefined") ? false : true,
+		dblgis 						: (typeof DG 		== "undefined") ? false : true
 	};
 
 	/* Если запрос шел на конкретного провайдера */
