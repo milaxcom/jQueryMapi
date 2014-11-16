@@ -3,7 +3,7 @@ jQueryMapi
 
 ###[Демо-страница](http://milaxcom.github.io/jQueryMapi/demo/) | [Скачать](https://github.com/milaxcom/jQueryMapi/archive/gh-pages.zip)
 
-Модуль jQuery Mapi предназначен для инициализации карт на основе JSON-объекта, карты. Поддерживаемые системы: Яндекс.Карты (RUS), Google Maps (MULTI), 2GIS (RUS).
+Модуль jQuery Mapi предназначен для инициализации карт на основе JSON-объекта. Поддерживаемые системы: Яндекс.Карты (RUS), Google Maps (MULTI), 2GIS (RUS).
 
 ######Модуль тестировался только в Google Chrome с jQuery 1.11.1 ввиду недостатка времени.
 
@@ -30,6 +30,8 @@ jQueryMapi
 ###Использование
 
 Для автоматической инициализации требуется добавить контейнеру ```id```, который будет соответствовать ```id``` в JSON-объекте и класс ```mapi```.
+
+Демо-пример [JSON-объекта](http://milaxcom.github.io/jQueryMapi/demo/storage.json).
 
 ```html
 <div id="map1" style="width:300px;height:200px;" class="mapi"></div> 
