@@ -1,0 +1,60 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<title>jQueryMapi</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+
+<meta name="mapi:storage-url" content="/demo/storage.json">
+
+<style>
+	body {margin:0; padding:0;}
+	.map {width: 100%; height: 600px; display: block;}
+	.content { display: none;}
+	.openmap {width: 100%; height: 50px; background-color: #7bb95f; cursor: pointer; text-align: center; text-transform: uppercase; font-family: "Helvetica Neue"; font-size: 16px; color:#fff; font-weight: bold; line-height: 3em;}
+</style>
+
+</head>
+
+<body>
+
+	<div class="openmap">Яндекс.Карты</div>
+	<div class="content" style="display:block;">
+        <div id="ymap" class="map mapi"></div> <!-- ВАРИАНТ ИНИЦИАЛИЗАЦИИ КАРТЫ -->
+    </div>
+
+	<div class="openmap">Google Maps</div>
+	<div class="content">
+        <div id="gmap" class="map"></div>
+    </div>
+
+	<div class="openmap">2Gis</div>
+	<div class="content">
+        <div id="2gismap" class="map"></div>
+    </div>
+
+    <script type="text/javascript" src="http://code.jquery.com/jquery-1.11.1.min.js"></script>
+    <script type="text/javascript" src="/jquery.mapi.js"></script>
+    <script type="text/javascript" src="http://api-maps.yandex.ru/2.1/?lang=ru_RU"></script>
+    <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?v=3&language=ru"></script>
+    <script type="text/javascript" src="http://maps.api.2gis.ru/2.0/loader.js?pkg=basic" data-id="dgLoader"></script>
+
+    <script type="text/javascript">
+    	$(".openmap").on("click", function () {
+    		var $next 			= $(this).next();
+    		var $map 			= $next.find(".map");
+    		var id 				= $map.attr("id");
+    		if ( !$map.hasClass("mapi-ready") ) {
+    			$next.show();
+    			$map.mapi(); /* ВАРИАНТ ИНИЦИАЛИЗАЦИИ КАРТЫ */
+    			$next.hide();
+    			$next.slideToggle();
+    		} else {
+    			$next.slideToggle();
+    		}
+    	});
+
+    </script>
+
+</body>
+</html>

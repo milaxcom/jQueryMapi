@@ -1,0 +1,203 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<title>jQueryMapi</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+
+<style>
+	body {margin:0; padding:0;}
+	.map {width: 100%; height: 300px; display: block;}
+	.content { display: show;}
+	.openmap {width: 100%; height: 50px; background-color: #7bb95f; cursor: pointer;}
+</style>
+
+</head>
+
+<body>
+
+	<div class="openmap"></div>
+	<div class="content">
+        <div id="ymap" class="map"></div>
+    </div>
+
+	<div class="openmap"></div>
+	<div class="content">
+        <div id="gmap" class="map"></div>
+    </div>
+
+	<div class="openmap"></div>
+	<div class="content">
+        <div id="2gismap" class="map"></div>
+    </div>
+
+    <script type="text/javascript" src="http://code.jquery.com/jquery-1.11.1.min.js"></script>
+    <script type="text/javascript" src="http://api-maps.yandex.ru/2.1/?lang=ru_RU"></script>
+    <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?v=3"></script>
+    <script type="text/javascript" src="http://maps.api.2gis.ru/2.0/loader.js?pkg=basic" data-id="dgLoader"></script>
+
+    <script type="text/javascript">
+    	$(".openmap").on("click", function () {
+    		$(this).next().slideToggle();
+    	});    
+    </script>
+
+    <script type="text/javascript">
+    	/* ЯНДЕКС.КАРТЫ */
+		$(function () {
+
+			setTimeout(function () {
+
+				var mapElenentID 			= "ymap";
+
+				/* Балуны */
+				var places 					= [{
+					position 					: [46.944022, 142.73222],
+					caption 					: "Милакс",
+					location 					: "Коммунистический пр-т, 21, оф. 300"
+				}];
+
+				/* Опции для ZOOM [текущий, от, до] */
+				var zoom 					= [16, 16, 16];
+
+				/**/
+
+				var state 				= {
+					center 						: places[0].position,
+					zoom 						: zoom[0],
+					behaviors 					: ["drag"],
+					controls 					: ["fullscreenControl", "typeSelector"]
+				};
+
+				var options 			= {
+					maxZoom 					: zoom[1],
+					minZoom 					: zoom[2]
+				};
+
+				/* Инициализация карты */
+				var mymap 					= new ymaps.Map(mapElenentID, state, options);
+
+				/* Раставляем балуны */
+				for (var key in places) {
+					/* Создаем балун */
+					var content 			= '<div class="mapi-caption">' + places[key].caption + '</div>' + '<div class="mapi-location">' + places[key].location + '</div>';
+					places[key].balloon 	= new ymaps.Placemark(places[key].position, { balloonContentBody : content });
+					/* Добавляем балун на карту */
+					mymap.geoObjects.add( places[key].balloon );
+				}
+
+			}, 3000);
+
+		});
+    </script>
+
+    <script type="text/javascript">
+    	/* GOOGLE MAPS */
+		$(function () {
+
+			setTimeout(function () {
+
+				var mapElenentID 			= "gmap";
+
+				/* Балуны */
+				var places 					= [{
+					position 					: [46.944022, 142.73222],
+					caption 					: "Милакс",
+					location 					: "Коммунистический пр-т, 21, оф. 300"
+				}];
+
+				/* Опции для ZOOM [текущий, от, до] */
+				var zoom 					= [17, 17, 17];
+
+				/**/
+
+				/* Позицию меняем на идентификатор гугл-карт */
+				for (var key in places) {
+					places[0].position 		= new google.maps.LatLng( places[0].position[0], places[0].position[1] );
+				}
+
+				var mapOptions 				= {
+					center 						: places[0].position,
+					zoom 						: zoom[0],
+					maxZoom 					: zoom[1],
+					minZoom 					: zoom[2],
+					disableDoubleClickZoom 		: true,
+					disableDefaultUI 			: true,
+					mapTypeControl 				: true,
+					scrollwheel 				: false
+				};
+
+				/* Инициализация карты */
+				var mymap 					= new google.maps.Map(document.getElementById(mapElenentID), mapOptions);
+
+				/* Раставляем балуны */
+				for (var key in places) {
+					/* Создание окна */
+					var content 			= '<div class="mapi-caption">' + places[key].caption + '</div>' + '<div class="mapi-location">' + places[key].location + '</div>';
+					places[key].infowindow	= new google.maps.InfoWindow({ content : content});
+
+					/* Добавление балуна на карту */
+					places[key].balloon = new google.maps.Marker({
+					    position 				: places[key].position,
+					    map 					: mymap
+					});
+					google.maps.event.addListener(places[key].balloon, 'click', function() {
+						places[key].infowindow.open( mymap, places[key].balloon );
+					});
+
+				}
+
+			}, 4000);
+
+		});
+    </script>
+
+    <script type="text/javascript">
+    	/* 2GIS MAP */
+		$(function () {
+
+			setTimeout(function () {
+
+				var mapElenentID 			= "2gismap";
+
+				/* Балуны */
+				var places 					= [{
+					position 					: [46.944022, 142.73222],
+					caption 					: "Милакс",
+					location 					: "Коммунистический пр-т, 21, оф. 300"
+				}];
+
+				/* Опции для ZOOM [текущий, от, до] */
+				var zoom 					= [14, 14, 14];
+
+				/**/
+
+				var mapOptions 				= {
+					center 						: places[0].position,
+					zoom 						: zoom[0],
+					maxZoom 					: zoom[1],
+					minZoom 					: zoom[2],
+					doubleClickZoom 			: false,
+					zoomControl 				: false,
+					scrollWheelZoom 			: false
+				};
+
+				/* Инициализация карты */
+		        var mymap 					= DG.map(mapElenentID, mapOptions);
+
+				/* Раставляем балуны */
+				for (var key in places) {
+					/* Создание балуна */
+					var content 				= '<div class="mapi-caption">' + places[key].caption + '</div>' + '<div class="mapi-location">' + places[key].location + '</div>';
+					var balloon = DG.marker(places[key].position).bindPopup(content);
+					/* Добавляем балун на карту */
+					balloon.addTo(mymap);
+				}
+
+			}, 5000);
+
+		});
+    </script>
+
+</body>
+</html>
