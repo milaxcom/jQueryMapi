@@ -5,7 +5,7 @@ jQueryMapi
 
 Модуль jQuery Mapi предназначен для инициализации карт на основе JSON-объекта, карты. Поддерживаемые системы: Яндекс.Карты (RUS), Google Maps (MULTI), 2GIS (RUS).
 
-######Модуль тестировался только в Google Chrome с jQuery 1.11.1 из-за не достатка времени.
+######Модуль тестировался только в Google Chrome с jQuery 1.11.1 ввиду недостатка времени.
 
 ####Преимущества
 - Предустановленные, наиболее популярные настройки карт.
@@ -17,9 +17,6 @@ jQueryMapi
 ```html
 <script type="text/javascript" src="js/jquery-1.11.1.min.js"></script>
 <script type="text/javascript" src="/jquery.mapi.js"></script>
-<script type="text/javascript" src="http://api-maps.yandex.ru/2.1/?lang=ru_RU"></script>
-<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?v=3&language=ru"></script>
-<script type="text/javascript" src="http://maps.api.2gis.ru/2.0/loader.js?pkg=basic" data-id="dgLoader"></script>
 ```
 
 Подключение API провайдеров (требуется подключение только необходимых API).
