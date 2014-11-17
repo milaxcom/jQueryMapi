@@ -26,12 +26,17 @@ jQueryMapi
 <script type="text/javascript" src="http://maps.api.2gis.ru/2.0/loader.js?pkg=basic" data-id="dgLoader"></script>
 ```
 
+Данные для карты (JSON-объект)
+```html
+<!-- В теге HEAD -->
+<meta name="mapi:storage-url" content="/jQueryMapi/demo/storage.json">
+```
+Демо-пример [JSON-объекта](http://milaxcom.github.io/jQueryMapi/demo/storage.json).
+
 
 ###Использование
 
 Для автоматической инициализации требуется добавить контейнеру ```id```, который будет соответствовать ```id``` в JSON-объекте и класс ```mapi```.
-
-Демо-пример [JSON-объекта](http://milaxcom.github.io/jQueryMapi/demo/storage.json).
 
 ```html
 <div id="map1" style="width:300px;height:200px;" class="mapi"></div> 
